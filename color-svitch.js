@@ -1,9 +1,9 @@
 import colors from "./colors.js";
 import refs from "./refs.js";
+
 const { buttonStartRef, buttonStopRef, bodyRef } = refs;
 
 buttonStartRef.addEventListener("click", startSvitchColor);
-buttonStopRef.addEventListener("click", stopSvitchColor);
 
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -15,9 +15,11 @@ function svitchColor() {
 }
 
 function startSvitchColor() {
-  setInterval(svitchColor, 1000);
+  buttonStartRef.removeEventListener("click", startSvitchColor);
+  const intervalInit = setInterval(svitchColor, 1000);
+  buttonStopRef.addEventListener("click", stopSvitchColor);
+  function stopSvitchColor() {
+    clearInterval(intervalInit);
+    buttonStartRef.addEventListener("click", startSvitchColor);
+  }
 }
-function stopSvitchColor() {
-  clearInterval();
-}
-console.dir(startSvitchColor);
