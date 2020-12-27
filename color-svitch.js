@@ -15,10 +15,12 @@ function svitchColor() {
 }
 
 function startSvitchColor() {
+  buttonStartRef.disabled = "disabled";
   buttonStartRef.removeEventListener("click", startSvitchColor);
   const intervalInit = setInterval(svitchColor, 1000);
   buttonStopRef.addEventListener("click", stopSvitchColor);
   function stopSvitchColor() {
+    buttonStartRef.disabled = "";
     clearInterval(intervalInit);
     buttonStartRef.addEventListener("click", startSvitchColor);
   }
